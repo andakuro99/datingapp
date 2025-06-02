@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dating App</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <h2>Dating App</h2>
+
+  <!-- AUTH SECTION -->
+  <div id="auth-section" class="card">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="signUp()">Sign Up</button>
+    <button onclick="login()">Login</button>
+  </div>
+
+  <!-- INFO SECTION -->
+  <div id="info-section" class="card hidden">
+    <input id="name" placeholder="Full Name">
+    <input id="age" type="number" placeholder="Age">
+    <select id="country">
+      <option value="">Select Country</option>
+      <option value="US">United States</option>
+      <option value="NG">Nigeria</option>
+      <option value="UK">United Kingdom</option>
+    </select>
+    <select id="gender">
+      <option value="">Gender</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+    <button onclick="submitUserInfo()">Submit Info</button>
+  </div>
+
+  <!-- PROFILE SECTION -->
+  <div id="profile-section" class="card hidden">
+    <h3>Welcome <span id="userEmail"></span> <span id="verifiedBadge"></span></h3>
+    <button onclick="auth.signOut()">Logout</button>
+    <button id="admin-btn" onclick="loadReports()" class="hidden">🛠 Admin Panel</button>
+    <button onclick="loadSwipe()">Swipe</button>
+    <button onclick="showEdit()">Edit Profile</button>
+    <button onclick="showMessages()">Messages</button>
+  </div>
+
+  <!-- SWIPE SECTION -->
+  <div id="swipe-section" class="card hidden">
+    <h3>Swipe Users</h3>
+    <div id="swipe-user"></div>
+    <button onclick="swipe('like')">Like</button>
+    <button onclick="swipe('skip')">Skip</button>
+    <button onclick="showPanel('profile')">Back</button>
+  </div>
+
+  <!-- EDIT PROFILE -->
+  <div id="edit-section" class="card hidden">
+    <h3>Edit Profile</h3>
+    <input id="edit-name" placeholder="Full Name">
+    <input id="edit-age" type="number" placeholder="Age">
+    <button onclick="updateProfile()">Save</button>
+    <button onclick="showPanel('profile')">Back</button>
+  </div>
+
+  <!-- MESSAGES -->
+  <div id="message-section" class="card hidden">
+    <h3>Messages</h3>
+    <input id="chat-user-id" placeholder="User ID to chat with">
+    <div class="message-box" id="chat-box"></div>
+    <input id="chat-input" placeholder="Type a message">
+    <button onclick="sendMessage()">Send</button>
+    <button onclick="showPanel('profile')">Back</button>
+  </div>
+
+  <!-- REPORT BLOCK -->
+  <div id="report-section" class="card hidden">
+    <h3>Report User</h3>
+    <input id="report-user-id" placeholder="User ID to report">
+    <button onclick="reportUser()">Report</button>
+    <button onclick="blockUser()">Block</button>
+    <button onclick="showPanel('profile')">Back</button>
+  </div>
+
+  <!-- ADMIN PANEL -->
+  <div id="admin-panel" class="card hidden">
+    <h3>🚨 Reports Dashboard</h3>
+    <div id="report-list"></div>
+    <button onclick="showPanel('profile')">Back</button>
+  </div>
+
+  <!-- Notification Sounds -->
+  <audio id="match-sound" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
+  <audio id="message-sound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
+
+  <script src="app.js"></script>
+</body>
+</html>
